@@ -4,6 +4,8 @@ sidebar: auto
 
 # 配置参考
 
+<Bit/>
+
 ## 基本配置(basic config)
 
 ### base
@@ -17,8 +19,8 @@ sidebar: auto
 
 **另请参考：**
 
-- [基准 URL](../guide/assets.md#base-url)
-- [部署教程 > Github 页面](../guide/deploy.md#github-pages)
+- [基准 URL](../guide/assets.md#相对-urls)
+- [部署教程 > Github 页面](../guide/deploy.md#github-页面)
 
 ### title
 
@@ -77,6 +79,10 @@ module.exports = {
 
 提供 Google AnalyticsID 来开启集成功能。
 
+::: tip 提示
+请留意 [GDPR (2018年欧盟数据保护规则改革)](https://ec.europa.eu/commission/priorities/justice-and-fundamental-rights/data-protection/2018-reform-eu-data-protection-rules_en), 在合适或者需要的情况下，考虑将 Google Analytics 设置为[匿名化的 IP](https://support.google.com/analytics/answer/2763052?hl=zh-Hans)。
+:::
+
 ### serviceWorker
 
 - Type: `boolean`
@@ -105,6 +111,13 @@ module.exports = {
 
 指定用于 i18n 支持，要获取更多细节，请参考[国际化指南](../guide/i18n.md)。
 
+### shouldPrefetch
+
+- 类型: `Function`
+- 默认值: `() => true`
+
+一个函数，用来控制对于哪些文件，是需要生成 `<link rel="prefetch">` 资源提示的。请参考 [shouldPrefetch](https://ssr.vuejs.org/zh/api/#shouldpreload)。
+
 ## 主题化(theming)
 
 ### theme
@@ -123,7 +136,7 @@ module.exports = {
 
 **另请参阅：**
 
-- [默认主题配置](../default-theme-config/).
+- [默认主题配置](../default-theme-config/README.md).
 
 ## Markdown
 
@@ -133,6 +146,10 @@ module.exports = {
 - Default: `undefined`
 
 是否在每个代码块的左侧显示行号。
+
+**另请参阅：**
+
+- [行号](../guide/markdown.md#行号)
 
 ### markdown.slugify
 
@@ -201,7 +218,7 @@ module.exports = {
 - Type: `Object`
 - Default: `{}`
 
-提供给 [sass-loader](https://github.com/postcss/postcss-loader) 的参数，用来加载 `*.scss` 文件。
+提供给 [sass-loader](https://github.com/webpack-contrib/sass-loader) 的参数，用来加载 `*.scss` 文件。
 
 ### sass
 

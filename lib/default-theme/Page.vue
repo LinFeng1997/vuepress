@@ -4,6 +4,8 @@
     <Content :custom="false"/>
     <div class="page-edit">
       <div class="edit-link" v-if="editLink">
+          <a :href="rawLink" target="_blank" rel="noopener noreferrer">查看原文</a>
+          |
         <a :href="editLink" target="_blank" rel="noopener noreferrer">{{ editLinkText }}</a>
         <OutboundLink/>
       </div>
@@ -126,6 +128,11 @@ export default {
         (docsDir ? '/' + docsDir.replace(endingSlashRE, '') : '') +
         path
       )
+    },
+    rawLink () {
+      const path = normalize(this.$page.path)
+      const rawPath = `https://vuepress.vuejs.org${path}.html`
+      return rawPath
     }
   }
 }

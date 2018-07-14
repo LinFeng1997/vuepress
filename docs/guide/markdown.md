@@ -2,7 +2,7 @@
 
 ## 标题锚点(header anchors)
 
-标题会自动获取锚点链接。可以使用 [`markdown.anchor`](../config/#markdownanchor) 选项来配置锚点的渲染。
+标题会自动获取锚点链接。可以使用 [`markdown.anchor`](../config/README.md#markdown-anchor) 选项来配置锚点的渲染。
 
 ## 链接(links)
 
@@ -53,7 +53,7 @@
 - [vuejs.org](https://vuejs.org)
 - [VuePress on GitHub](https://github.com/vuejs/vuepress)
 
-你可以自定义通过配置 [config.markdown.externalLinks](../config/#markdown-externallinks) 来自定义外部链接的特性。
+你可以自定义通过配置 [config.markdown.externalLinks](../config/README.md#markdown-externallinks) 来自定义外部链接的特性。
 
 ## Front Matter
 
@@ -150,7 +150,7 @@ lang = "en-US"
 
 [[toc]]
 
-可以使用 [`markdown.toc`](../config/#markdown-toc) 选项，来配置目录(table of contents - TOC)的渲染。
+可以使用 [`markdown.toc`](../config/README.md#markdown-toc) 选项，来配置目录(table of contents - TOC)的渲染。
 
 ## 自定义容器(custom containers)
 
@@ -223,6 +223,79 @@ export default {
   }
 }
 ```
+
+## 行号
+
+你可以通过配置给每个代码块启用行号：
+
+``` js
+module.exports = {
+  markdown: {
+    lineNumbers: true
+  }
+}  
+```
+
+<!-- TODO Support line numbers for specific fence block -->
+
+- 示例:
+
+<picture>
+  <source srcset="/line-numbers-desktop.png" media="(min-width: 719px)">
+  <img class="line-numbers-desktop-snap" alt="Image">
+</picture>
+
+<picture>
+  <source srcset="/line-numbers-mobile.gif" media="(max-width: 719px)">
+  <img class="line-numbers-mobile-snap" alt="Image">
+</picture>
+
+<style>
+  @media screen and (min-width:  719px) {
+    .line-numbers-mobile-snap {
+       display: none;
+    }
+  }
+  @media screen and (max-width:  719px) {
+    .line-numbers-desktop-snap {
+       display: none;
+    }
+    .line-numbers-mobile-snap {
+      max-width: none!important;
+      margin: 0 -1.5rem;
+      width: 100vw;
+    }
+  }
+</style>
+
+## 导入代码片段 <Badge text="beta" type="warn"/> <Badge text="0.10.1+" type="tip"/>
+
+你能够通过下面的语法从已有文件里导入代码片段：
+
+``` md
+<<< @/filepath
+```
+
+它也支持[行高亮](#line-highlighting-in-code-blocks):
+
+``` md
+<<< @/filepath{highlightLines} 
+```
+
+**输入**
+
+``` md
+<<< @/test/markdown/fragments/snippet.js{2}
+```
+
+**输出**
+
+<<< @/test/markdown/fragments/snippet.js{2}
+
+::: tip
+由于导入的代码片段会在 webpack 编译之前执行，因此你无法在 webpack 中使用路径别名。`@` 的默认值是 `process.cwd（）` 。
+:::
+
 
 ## 高级配置(advanced configuration)
 

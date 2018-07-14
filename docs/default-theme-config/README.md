@@ -4,13 +4,15 @@ sidebar: auto
 
 # 默认主题配置(default theme config)
 
+<Bit/>
+
 ::: tip 提示
 此页面上列出的所有选项仅适用于默认主题。如果你使用的是自定义主题，则选项可能会有所不同。
 :::
 
 ## 主页(homepage)
 
-默认主题提供了一个主页布局（用于[该网站的主页](/)）。要使用它，需要在你的根目录 `README.md` 的 [YAML front matter](../guide/markdown.html#yaml-front-matter) 中指定 `home：true`，并加上一些其他的元数据。这是本网站使用的实际数据：
+默认主题提供了一个主页布局（用于[该网站的主页](/README.md)）。要使用它，需要在你的根目录 `README.md` 的 [YAML front matter](../guide/markdown.md#front-matter) 中指定 `home：true`，并加上一些其他的元数据。这是本网站使用的实际数据：
 
 ``` yaml
 ---
@@ -111,7 +113,7 @@ navbar: false
 ---
 ```
 
-## Sidebar
+## 侧边栏(sidebar)
 
 要启用侧边栏, 请使用 `themeConfig.sidebar`。基本的配置需要一个链接数组：
 
@@ -142,6 +144,18 @@ sidebarDepth: 2
 ---
 ```
 
+### 显示所有页面的标题链接 <Badge text="0.11.0+"/>
+
+默认情况下，侧边栏只会显示由当前活动页面的标题（headers）组成的链接，你可以将 `themeConfig.displayAllHeaders` 设置为 `true` 来显示所有页面的标题链接：
+
+``` js
+module.exports = {
+  themeConfig: {
+    displayAllHeaders: true // 默认值：false
+  }
+}
+```
+
 ### 激活的标题链接
 
 默认情况下，当用户滚动页面，查看不同部分时，嵌套的标题链接和 URL 中的哈希值会随之更新，此行为可以通过以下的主题配置来禁用：
@@ -149,7 +163,7 @@ sidebarDepth: 2
 ``` js
 module.exports = {
   themeConfig: {
-    activeHeaderLinks: false, // Default: true
+    activeHeaderLinks: false, // 默认值：true
   }
 }
 ```
@@ -240,7 +254,7 @@ module.exports = {
 VuePress 会按从上到下的顺序，遍历侧边栏配置。如果回退侧边栏定义在第一位，VuePress 会无法正确的匹配 `/foo/` 或 `/bar/four.html`，因为他们都以 `/` 为开始。
 :::
 
-### 单页自动补充工具栏(auto sidebar for single pages)
+### 自动生成侧栏(auto sidebar for single pages)
 
 如果你希望自动生成仅包含当前页面的标题链接的侧边栏，可以在该页面上使用  `YAML front matter`：
 
@@ -248,6 +262,30 @@ VuePress 会按从上到下的顺序，遍历侧边栏配置。如果回退侧�
 ---
 sidebar: auto
 ---
+```
+
+你也可以通过配置来在所有页面中启用它：
+
+``` js
+// .vuepress/config.js
+module.exports = {
+  themeConfig: {
+    sidebar: 'auto'
+  }
+}
+```
+
+在 [多语言](../guide/i18n.md) 模式下, 你也可以将其应用到某一特定的语言下：
+
+``` js
+// .vuepress/config.js
+module.exports = {
+  themeConfig: {
+     '/': {
+       sidebar: 'auto'
+     }
+  }
+}
 ```
 
 ### 禁用侧边栏(disabling the sidebar)
@@ -293,6 +331,10 @@ module.exports = {
   }
 }
 ```
+
+::: warning 注意
+不同于开箱即用的 [内置搜索](#内置搜索)，[Algolia 搜索](https://community.algolia.com/docsearch/) 需要你在使用之前将你的网站提交给它们用于创建索引。
+:::
 
 更多信息，请参考 [Algolia DocSearch 文档](https://github.com/algolia/docsearch#docsearch-options)。
 
@@ -377,6 +419,39 @@ $borderColor = #eaecef
 $codeBgColor = #282c34
 ```
 
+### 仍然存在的问题 <Badge text="< 0.12.0" type='error'/>
+
+为了覆盖上面提到的默认变量，`override.styl` 将在默认主题的 `config.styl` 末尾导入，这个文件将被多个文件使用，所以一旦你在这里写了样式，你的 样式将被多次复制。参考 [#637](https://github.com/vuejs/vuepress/issues/637)。
+
+事实上，`style constants override` 和 `styles override` 是两个东西，前者应该在编译 CSS 之前执行，而后者应该在 CSS bundle 末尾生成，它具有最高优先级。
+
+### 迁移你的样式到 `style.styl` <Badge text="0.12.0+"/>
+
+从 `0.12.0` 开始，我们将 `override.styl` 分成两个 API：`override.styl` 和 `style.styl`：
+
+如果你以前在 `override.styl` 中编写样式，例如：
+
+``` stylus
+// override.styl
+$textColor = red // style constants override
+
+#my-style {} // styles override or custom styles.
+```
+
+你需要抽离这部分样式到 `style.styl`:
+
+``` stylus
+// override.styl
+// SHOULD ONLY focus on style constants override.
+$textColor = red
+```
+
+``` stylus
+// style.styl
+// SHOULD focus on styles override or your custom styles.
+#my-style {}
+```
+
 ## 自定义页面的 class
 
 有时，你可能需要为特定的页面添加一个唯一的 class，以便你只能在自定义 CSS 中定位该页面上的内容。 你可以在 `YAML front matter` 中用 `pageClass` 在主题的容器 div 中添加一个 class：
@@ -409,6 +484,6 @@ layout: SpecialLayout
 
 这将为给定页面渲染 `.vuepress/components/SpecialLayout.vue`。
 
-## ejecting
+## 弹出(ejecting)
 
 你可以将默认主题的源代码复制到 `.vuepress/theme` 中，来使用 `vuepress eject [targetDir]` 命令彻底自定义主题。但是请注意，一旦你 eject，即使你升级 VuePress 版本，你这仍然是自己的主题，并且不会收到对默认主题的未来更新或错误修复。

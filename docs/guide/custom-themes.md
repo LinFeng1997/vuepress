@@ -1,7 +1,7 @@
 # 自定义主题
 
 ::: tip 提示
-主题组件同样受到[浏览器 API 访问限制](./using-vue.md#browser-api-access-restrictions)。
+主题组件同样受到[浏览器 API 访问限制](./using-vue.md#浏览器-api-访问限制)。
 :::
 
 VuePress 使用 Vue 单个文件组件来定制主题。要使用自定义布局，请在文档根目录下创建一个 `.vuepress/theme` 目录，然后创建一个 `Layout.vue` 文件：
@@ -38,7 +38,7 @@ VuePress 使用 Vue 单个文件组件来定制主题。要使用自定义布局
 }
 ```
 
-`title`，`description` 和 `base` 从 `.vuepress/config.js` 中的相应字段复制而来。 `pages` 包含每个页面的元数据对象数组，包括其路径，页面标题（在 [YAML front matter](./markdown.html#yaml-front-matter) 中显式指定或从页面上的第一个标题推断）以及该文件中的任意 YAML frontmatter 数据。
+`title`，`description` 和 `base` 从 `.vuepress/config.js` 中的相应字段复制而来。 `pages` 包含每个页面的元数据对象数组，包括其路径，页面标题（在 [YAML front matter](./markdown.md#front-matter) 中显式指定或从页面上的第一个标题推断）以及该文件中的任意 YAML frontmatter 数据。
 
 这是你正在查看的此页面的 `$page` 对象：
 
@@ -57,7 +57,7 @@ VuePress 使用 Vue 单个文件组件来定制主题。要使用自定义布局
 最后，别忘了 `this.$route` 和 `this.$router` 也可作为 Vue Router API 的一部分。
 
 ::: tip 提示
-`lastUpdated` 是该文件最后一次 git 提交的 UNIX 时间戳，更多详细信息请参考[最近的更新](../default-theme-config/#last-updated)。
+`lastUpdated` 是该文件最后一次 git 提交的 UNIX 时间戳，更多详细信息请参考[最近的更新](../default-theme-config/README.md#最近更新)。
 
 :::
 

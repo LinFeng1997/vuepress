@@ -58,7 +58,7 @@ export default {
 
 ### 访问网站和页面数据
 
-已编译的组件没有任何私有数据，但可以访问[网站元数据](./custom-themes.md#site-and-page-metadata)。例如：
+已编译的组件没有任何私有数据，但可以访问[网站元数据](./custom-themes.md#网站和网页元数据-site-and-page-metadata)。例如：
 
 **输入**
 
@@ -152,7 +152,7 @@ yarn add -D pug pug-plain-loader
 ::: tip
 如果你是 Stylus 用户，那么不需要在项目中安装 `stylus` 和 `stylus-loader`，因为VuePress 内部已经使用了 Stylus。
 
-对于没有内置 webpack 配置支持的预处理器，除了安装必要的依赖项外，还需要[扩展内部 webpack 配置](../config/#configurewebpack)。
+对于没有内置 webpack 配置支持的预处理器，除了安装必要的依赖项外，还需要[扩展内部 webpack 配置](../config/README.md#configurewebpack)。
 :::
 
 ## 脚本和样式提升
@@ -175,3 +175,48 @@ export default {
   }
 }
 </script>
+
+## 内置组件
+
+### OutboundLink <Badge text="stable"/>
+
+它（<OutboundLink />）用于表示这是一个外部链接。在 VuePress 中，每个外部链接都跟着一个这样的组件。
+
+### ClientOnly <Badge text="stable"/>
+
+参考[浏览器 API 访问限制](#browser-api-access-restrictions)。
+
+### Content <Badge text="beta" type="warn"/>
+
+- **Props**:
+
+  - `custom` - boolean
+
+- **用法**：   
+   
+当前 `.md` 文件渲染的已编译内容。当你使用[自定义布局](../default-theme-config/README.md#自定义页面的-class)时，这将非常有用。
+
+``` vue
+<Content/>
+```
+
+**也可以参考：** 
+
+- [自定义主题 > 获取渲染内容](./custom-themes.md#内容出口-content-outlet)
+
+  
+### Badge <Badge text="beta" type="warn"/> <Badge text="0.10.1+"/>
+
+- **Props**:
+
+   - `text` - string
+   - `type` - string, 可选值：`"tip"|"warn"|"error"`, 默认值是：`"tip"`.
+   - `vertical` - string, 可选值：`"top"|"middle"`, 默认值是：`"top"`.
+
+- **用法**:
+
+你可以在标题文本的末尾，使用这个组件来为某些 API 添加一些状态：
+   
+``` md
+### Badge <Badge text="beta" type="warn"/> <Badge text="0.10.1+"/>
+```   
