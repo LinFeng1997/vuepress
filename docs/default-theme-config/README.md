@@ -353,7 +353,7 @@ module.exports = {
 请注意，它默认是关闭的，如果给定一个 `string` 类型的值，它将会作为前缀显示（默认值是：`Last Updated`）。
 
 ::: warning
-  Since `lastUpdated` is based on `git`, you can only use it in a `git` repository. As well, since the timestamp used comes from the git commit, it will display only after a first commit for a given page, and update only on subsequent commits of that page.
+  由于 `lastUpdated` 是基于 `git` 的, 所以你只能在一个基于 `git` 的项目中启用它。
 :::
 
 ## Service Worker
@@ -364,20 +364,20 @@ module.exports = {
 请不要将 `themeConfig.serviceWorker` 与 [Config > serviceWorker](../config/README.md#serviceworker) 混淆，[Config > serviceWorker](../config/README.md#serviceworker) 是**站点级别的**，而 `themeConfig.serviceWorker` 是**主题级别的**
 :::
 
-### Popup UI to refresh contents <Badge text="0.13.0+"/> <Badge text="beta" type="warn"/>
+### 刷新内容的弹窗 <Badge text="0.13.0+"/> <Badge text="beta" type="warn"/>
 
-The `themeConfig.serviceWorker.updatePopup` option enables the popup to refresh contents. The popup will be shown when the site is updated (i.e. service worker is updated). It provides `refresh` button to allow users to refresh contents immediately.
+开启 `themeConfig.serviceWorker.updatePopup` 选项，将开启一个能够刷新内容的弹窗。当网站更新（即 Worker 更新）时，它会提供一个 `refresh` 按钮，允许用户立刻刷新内容。
 
-::: tip NOTE
-If without the `refresh` button, the new service worker will be active after all [clients](https://developer.mozilla.org/en-US/docs/Web/API/Clients) are closed. This means that visitors cannot see new contents until they close all tabs of your site. But the `refresh` button activates the new service worker immediately.
+::: tip 提示
+如果没有 `refresh` 按钮，新的 service worker 将在所有的 [clients](https://developer.mozilla.org/en-US/docs/Web/API/Clients) 关闭后才会处于活动状态。这意味着访问者在关闭你网站的所有标签之前将无法看到新内容。但是，`refresh` 按钮可以立即激活新的 Service Worker。
 :::
 
 ``` js
 module.exports = {
   themeConfig: {
     serviceWorker: {
-      updatePopup: true // Boolean | Object, default to undefined.
-      // If set to true, the default text config will be: 
+      updatePopup: true // Boolean | Object, 默认值是 undefined.
+      // 如果设置为 true, 默认的文本配置将是: 
       // updatePopup: { 
       //    message: "New content is available.", 
       //    buttonText: "Refresh" 

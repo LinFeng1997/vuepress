@@ -21,7 +21,7 @@ VuePress 网站实际上是由 [Vue](http://vuejs.org/), [Vue Router](https://gi
 - [以 Vue 驱动的自定义主题系统](./custom-themes.md)
 - [自动生成 Service Worker](../config/README.md#serviceworker)
 - [Google Analytics 集成](../config/README.md#ga)
-- ["Last Updated" based on Git](../default-theme-config/README.md#最近更新)
+- [基于 Git 的"最近更新"](../default-theme-config/README.md#最近更新)
 - [多语言支持](./i18n.md)
 - 一个默认主题包括：
   - 响应式布局
