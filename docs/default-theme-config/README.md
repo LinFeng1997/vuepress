@@ -352,8 +352,8 @@ module.exports = {
 
 请注意，它默认是关闭的，如果给定一个 `string` 类型的值，它将会作为前缀显示（默认值是：`Last Updated`）。
 
-::: warning 警告
- 因为 `lastUpdated` 是基于 `git` 的, 所以你只能在一个基于 `git` 的项目中启用它。
+::: warning
+  Since `lastUpdated` is based on `git`, you can only use it in a `git` repository. As well, since the timestamp used comes from the git commit, it will display only after a first commit for a given page, and update only on subsequent commits of that page.
 :::
 
 ## Service Worker
@@ -377,10 +377,10 @@ module.exports = {
   themeConfig: {
     serviceWorker: {
       updatePopup: true // Boolean | Object, default to undefined.
-      // If set to true, the default text config will be:
-      // updatePopup: {
-      //    message: "New content is available.",
-      //    buttonText: "Refresh"
+      // If set to true, the default text config will be: 
+      // updatePopup: { 
+      //    message: "New content is available.", 
+      //    buttonText: "Refresh" 
       // }
     }
   }
