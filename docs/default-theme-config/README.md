@@ -356,6 +356,37 @@ module.exports = {
  因为 `lastUpdated` 是基于 `git` 的, 所以你只能在一个基于 `git` 的项目中启用它。
 :::
 
+## Service Worker
+
+`themeConfig.serviceWorker` 选项将允许你进行 service worker 相关的配置
+
+::: tip 提示
+请不要将 `themeConfig.serviceWorker` 与 [Config > serviceWorker](../config/README.md#serviceworker) 混淆，[Config > serviceWorker](../config/README.md#serviceworker) 是**站点级别的**，而 `themeConfig.serviceWorker` 是**主题级别的**
+:::
+
+### Popup UI to refresh contents <Badge text="0.13.0+"/> <Badge text="beta" type="warn"/>
+
+The `themeConfig.serviceWorker.updatePopup` option enables the popup to refresh contents. The popup will be shown when the site is updated (i.e. service worker is updated). It provides `refresh` button to allow users to refresh contents immediately.
+
+::: tip NOTE
+If without the `refresh` button, the new service worker will be active after all [clients](https://developer.mozilla.org/en-US/docs/Web/API/Clients) are closed. This means that visitors cannot see new contents until they close all tabs of your site. But the `refresh` button activates the new service worker immediately.
+:::
+
+``` js
+module.exports = {
+  themeConfig: {
+    serviceWorker: {
+      updatePopup: true // Boolean | Object, default to undefined.
+      // If set to true, the default text config will be:
+      // updatePopup: {
+      //    message: "New content is available.",
+      //    buttonText: "Refresh"
+      // }
+    }
+  }
+}
+```
+
 ## 上一页 / 下一页链接(prev / next links)
 
 根据激活页面的侧边栏顺序自动推断上一个和下一个链接。你也可以使用 `YAML front matter` 来显式覆盖或禁用它们：
@@ -423,32 +454,28 @@ $codeBgColor = #282c34
 
 为了覆盖上面提到的默认变量，`override.styl` 将在默认主题的 `config.styl` 末尾导入，这个文件将被多个文件使用，所以一旦你在这里写了样式，你的 样式将被多次复制。参考 [#637](https://github.com/vuejs/vuepress/issues/637)。
 
-事实上，`style constants override` 和 `styles override` 是两个东西，前者应该在编译 CSS 之前执行，而后者应该在 CSS bundle 末尾生成，它具有最高优先级。
-
 ### 迁移你的样式到 `style.styl` <Badge text="0.12.0+"/>
 
-从 `0.12.0` 开始，我们将 `override.styl` 分成两个 API：`override.styl` 和 `style.styl`：
+事实上，`style constants override` 和 `styles override` 是两个东西，前者应该在编译 CSS 之前执行，而后者应该在 CSS bundle 末尾生成，它具有最高优先级。
 
-如果你以前在 `override.styl` 中编写样式，例如：
+从 `0.12.0` 开始，我们将 `override.styl` 分成两个 API：`override.styl` 和 `style.styl` 。如果你以前在 `override.styl` 中编写样式，例如：
 
 ``` stylus
-// override.styl
-$textColor = red // style constants override
+// .vuepress/override.styl
+$textColor = red // stylus constants override.
 
-#my-style {} // styles override or custom styles.
+#my-style {} // your extra styles.
 ```
 
 你需要抽离这部分样式到 `style.styl`:
 
 ``` stylus
-// override.styl
-// SHOULD ONLY focus on style constants override.
+// .vuepress/override.styl, SHOULD ONLY contain "stylus constants override".
 $textColor = red
 ```
 
 ``` stylus
-// style.styl
-// SHOULD focus on styles override or your custom styles.
+// .vuepress/style.styl, your extra styles.
 #my-style {}
 ```
 
