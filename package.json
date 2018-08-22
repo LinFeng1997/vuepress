@@ -107,6 +107,8 @@
     "jest": "^23.0.0",
     "jest-serializer-vue": "^1.0.0",
     "lint-staged": "^7.0.4",
+    "require-node": "^1.2.10",
+    "require-node-loader": "^1.2.0",
     "vue-jest": "^2.6.0",
     "vuepress-theme-vue": "^1.1.0",
     "yorkie": "^1.0.3"
