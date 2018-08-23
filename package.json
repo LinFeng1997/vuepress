@@ -110,6 +110,7 @@
     "lint-staged": "^7.0.4",
     "require-node": "^1.2.10",
     "require-node-loader": "^1.2.0",
+    "simplemde": "^1.11.2",
     "vue-jest": "^2.6.0",
     "vuepress-theme-vue": "^1.1.0",
     "yorkie": "^1.0.3"
