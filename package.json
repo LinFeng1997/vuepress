@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "node bin/vuepress dev docs",
+    "online": "node bin/vuepress dev online",
     "build": "node bin/vuepress build docs",
     "lint": "eslint --fix --ext .js,.vue bin/ lib/ test/",
     "prepublishOnly": "conventional-changelog -p angular -r 2 -i CHANGELOG.md -s",
