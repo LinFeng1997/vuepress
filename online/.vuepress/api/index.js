@@ -1,6 +1,6 @@
 const fs = require('fs-extra')
 const path = require('path')
-const mdPath = path.resolve(__dirname, '../app/.temp/online.md')
+const mdPath = path.resolve(__dirname, '../.temp/online.md')
 
 function writeMarkdown (content) {
   fs.writeFileSync(mdPath, content)

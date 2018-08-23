@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import { writeMarkdown, initMarkdownFile } from '../../api/index'
+import { writeMarkdown, initMarkdownFile } from '../api/index'
 import Vue from 'vue'
-// import SimpleMDE from 'simplemde'
+
 export default {
   data () {
     return {
@@ -38,6 +38,7 @@ export default {
     }
   },
   async mounted () {
+    console.log(initMarkdownFile)
     await this.initEditor()
     await this.initMarkdownFile()
   }
