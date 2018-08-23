@@ -19,29 +19,27 @@ export default {
     }
   },
   methods: {
-    async write (e) {
-      console.log('aaa')
-      const content = e.target.value
-      await writeMarkdown(content)
+    async initEditor () {
+      const SimpleMDE = window.SimpleMDE || (() => {})
+      this.value = await initMarkdownFile()
+      const mde = new SimpleMDE()
+      mde.value(this.value)
+      mde.codemirror.on('change', async () => {
+        await writeMarkdown(mde.value())
+      })
+    },
+    async initMarkdownFile () {
+      let OnlineMarkdown = await import('../.temp/online.md')
+      OnlineMarkdown = OnlineMarkdown.default
+
+      const componentName = 'TempMarkdown'
+      Vue.component(componentName, OnlineMarkdown)
+      this.componentName = componentName
     }
   },
   async mounted () {
-    const SimpleMDE = window.SimpleMDE || (() => {
-    })
-    // const simplemde = new SimpleMDE({ element: document.getElementById('mde') })
-    this.value = await initMarkdownFile()
-    const mde = new SimpleMDE()
-    mde.value(this.value)
-    mde.codemirror.on('change', async () => {
-      await writeMarkdown(mde.value())
-    })
-
-    let OnlineMarkdown = await import('../.temp/online.md')
-    OnlineMarkdown = OnlineMarkdown.default
-
-    const componentName = 'TempMarkdown'
-    Vue.component(componentName, OnlineMarkdown)
-    this.componentName = componentName
+    await this.initEditor()
+    await this.initMarkdownFile()
   }
 }
 </script>

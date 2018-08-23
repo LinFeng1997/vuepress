@@ -1,3 +1,3 @@
-## online editor
+## vuepress editor
 
-<OnlineEditor/>
+<VuepressEditor/>
